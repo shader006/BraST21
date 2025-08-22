@@ -1,0 +1,17 @@
+torchrun --standalone --nnodes=1 --nproc_per_node=2 main.py \
+  --distributed \
+  --json_list=/work/cuc.buithi/brats_challenge/BraTS2021/brats21_folds.json \
+  --data_dir=/work/cuc.buithi/brats_challenge/BraTS2021 \
+  --logdir=./runs/swinunetr_brats21_ddp2 \
+  --fold=0 \
+  --max_epochs=300 --val_every=10 \
+  --batch_size=1\            # batch mỗi GPU
+  --sw_batch_size=4 \
+  --roi_x=128 --roi_y=128 --roi_z=128 \
+  --in_channels=4 --spatial_dims=3 \
+  --infer_overlap=0.7 \
+  --optim_lr=0.0008 \           # điểm khởi đầu an toàn
+  --lrschedule=warmup_cosine \
+  --cache_dataset \
+  --use_checkpoint \
+  --workers=2     
